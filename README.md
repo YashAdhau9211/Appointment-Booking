@@ -188,4 +188,4 @@ This project is a demo application for Spring Boot.
 
 ## Author
 
-MSSU
+Ishita Parkar, Kirshnandu Gurey, Prutha Jadhav and Yash Adhau 
