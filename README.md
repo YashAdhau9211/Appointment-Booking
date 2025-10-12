@@ -182,9 +182,6 @@ curl -X DELETE http://localhost:9080/appointments/delete/1
 
 The application uses Spring Boot DevTools for automatic restart during development. Any changes to the source code will trigger an automatic restart.
 
-## License
-
-This project is a demo application for Spring Boot.
 
 ## Author
 
