@@ -22,6 +22,8 @@ A Simple, Scalable appointment management application with Spring Boot backend a
 - 💾 Dual database support (H2 for development, MySQL for production)
 - ☁️ AWS RDS integration ready
 - 🚀 Spring Boot DevTools for rapid development
+- 🔄 Automated CI/CD pipeline with Jenkins
+- 🐳 Docker containerization support
 
 ## Tech Stack
 
@@ -38,7 +40,13 @@ A Simple, Scalable appointment management application with Spring Boot backend a
 - **Responsive Design**: Mobile-friendly interface
 
 ### Cloud & DevOps
+- **Jenkins**: CI/CD automation and pipeline
+- **Docker**: Containerization
+- **Docker Compose**: Multi-container orchestration
 - **AWS RDS**: MySQL database hosting
+- **AWS ECS**: Container orchestration
+- **AWS ECR**: Container registry
+- **AWS Elastic Beanstalk**: Application hosting
 - **H2 Console**: In-memory database for local testing
 - **Spring Boot DevTools**: Hot reload during development
 
@@ -307,7 +315,41 @@ The application uses Spring Boot DevTools for automatic restart when code change
 
 ## Deployment
 
-### AWS RDS Setup
+### Quick Deploy Options
+
+**Option 1: Docker (Recommended for Local/Testing)**
+```bash
+# Start all services (MySQL + Application)
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+**Option 2: AWS Elastic Beanstalk (Production)**
+```bash
+# Windows
+deploy-aws.bat
+
+# Mac/Linux
+chmod +x deploy-aws.sh
+./deploy-aws.sh
+```
+
+**Option 3: Manual AWS Deployment**
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive deployment guides including:
+- AWS Elastic Beanstalk setup
+- AWS EC2 deployment
+- AWS RDS configuration
+- Docker containerization
+- Production checklist
+- Troubleshooting guide
+
+### Quick AWS RDS Setup
 
 1. **Create RDS MySQL Instance**
    - Engine: MySQL 8.0+
@@ -322,16 +364,13 @@ The application uses Spring Boot DevTools for automatic restart when code change
    spring.datasource.password=your-password
    ```
 
-3. **Run schema.sql on RDS**
+3. **Initialize database**
    ```bash
    mysql -h your-rds-endpoint -u admin -p appointmentdb < src/main/resources/schema.sql
+   mysql -h your-rds-endpoint -u admin -p appointmentdb < src/main/resources/data.sql
    ```
 
-4. **Deploy application**
-   ```bash
-   mvn clean package
-   java -jar target/restapi_app-0.0.1-SNAPSHOT.jar
-   ```
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ## Troubleshooting
 
@@ -422,11 +461,60 @@ This project demonstrates:
 
 This project is created for educational purposes as part of a Cloud Computing course.
 
+## CI/CD Pipeline
+
+This project includes a complete Jenkins CI/CD pipeline that automates:
+
+- ✅ **Build** - Compiles Spring Boot application with Maven
+- ✅ **Test** - Runs unit tests and generates reports
+- ✅ **Package** - Creates JAR and Docker images
+- ✅ **Push** - Pushes images to AWS ECR
+- ✅ **Deploy** - Automatically deploys to AWS ECS/Elastic Beanstalk
+- ✅ **Health Check** - Verifies deployment success
+
+### Pipeline Files
+
+- `Jenkinsfile` - Complete CI/CD pipeline for ECS deployment
+- `Jenkinsfile.simple` - Simplified pipeline for Elastic Beanstalk
+- `task-definition.json` - ECS task definition
+- `jenkins-setup.sh` / `jenkins-setup.bat` - Setup helper scripts
+
+### Quick Jenkins Setup
+
+```bash
+# Windows
+jenkins-setup.bat
+
+# Mac/Linux
+chmod +x jenkins-setup.sh
+./jenkins-setup.sh
+```
+
+For complete Jenkins setup instructions, see [JENKINS-SETUP.md](JENKINS-SETUP.md)
+
+## Documentation
+
+This project includes comprehensive documentation:
+
+| Document | Description |
+|----------|-------------|
+| [README.md](README.md) | Main documentation (this file) |
+| [QUICK-START.md](QUICK-START.md) | Get started in under 5 minutes |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Complete deployment guide for AWS, Docker, and EC2 |
+| [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md) | Step-by-step deployment checklist |
+| [JENKINS-SETUP.md](JENKINS-SETUP.md) | Complete Jenkins CI/CD setup guide |
+| [CI-CD-PIPELINE.md](CI-CD-PIPELINE.md) | CI/CD pipeline architecture and workflow |
+| [PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md) | High-level architecture and system overview |
+| [PROJECT-FILES.md](PROJECT-FILES.md) | Complete reference of all project files |
+| [COMMANDS.md](COMMANDS.md) | Quick reference for all commands |
+
 ## Support
 
 For issues and questions:
-- Check the troubleshooting section
-- Review the API documentation
+- Check [QUICK-START.md](QUICK-START.md) for common setup issues
+- Review [DEPLOYMENT.md](DEPLOYMENT.md) for deployment problems
+- Check [COMMANDS.md](COMMANDS.md) for command reference
+- Review the troubleshooting section above
 - Contact team members
 
 ---

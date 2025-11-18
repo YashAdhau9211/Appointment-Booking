@@ -31,3 +31,24 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Deployment ###
+.elasticbeanstalk/
+*.pem
+*.key
+
+### Environment ###
+.env
+.env.local
+.env.production
+
+### Docker ###
+docker-compose.override.yml
+
+### Logs ###
+*.log
+logs/
+
+### OS ###
+.DS_Store
+Thumbs.db
